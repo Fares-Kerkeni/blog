@@ -1,0 +1,12 @@
+docker build -t blog .
+docker compose up -d
+
+
+retirer tt les comp
+docker kill $(docker ps -q)
+
+docker volume ls
+docker stop $(docker ps -a -q)   *
+docker rm $(docker ps -a -q)
+
+
