@@ -8,8 +8,8 @@
 </head>
 <body>
 <?php
-    // $pdo = new PDO(dsn:"mysql:host=database:3306;dbname=php_db", username:"root", password:"password");
-    echo "coucou theo";
+  echo "salut";
 ?>
+
 </body>
 </html>
