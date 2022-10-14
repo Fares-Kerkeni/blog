@@ -69,6 +69,11 @@ services:
         #     MYSQL_USER: user
         #     MYSQL_PASSWORD: test
         #     MYSQL_ROOT_PASSWORD: test
+    ## Tools : SASS
+    sass:
+        image: larryprice/sass
+        volumes:
+            - ./:/src
 volumes:
     persistent:
 
