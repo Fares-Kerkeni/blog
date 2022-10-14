@@ -1,2 +1,2 @@
-CREATE DATABASE proute;
+CREATE DATABASE blog;
 
