@@ -1,10 +1,9 @@
 <?php
   // $pdo = new PDO(dsn:"mysql:host=database:3306;dbname=php_db", username:"root", password:"password");
 //   echo "coucou fares";
-  $dsn = "mysql:host=db";
-  $user = "user";
-  $pwd = "test";
-  $pdo = new PDO($dsn, $user, $pwd);
+$user = "user";
+$pwd = "test";
+$bdd = new PDO('mysql:host=db;dbname=blog', $user, $pwd);
       //On vérifie la connexion
 //   if($pdo){
 //     echo 'Connexion réussie';
