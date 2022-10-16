@@ -22,7 +22,38 @@
             
             }
         }
-    
+        if(isset($_POST['sup'])){
+            
+                // pour que l'utilisateur de rentre pas de l'html
+                $id_post = htmlspecialchars($_POST['id_post']);
+                
+                 //partie insertion
+                //preparation de la requete
+                $delete_poste = $bdd->prepare("DELETE FROM post WHERE id_post = '".$id_post."'");    
+                //execution de la requete
+                $delete_poste->execute();
+                //si il y a pas d'information ou manque des information
+        }
+            
+        if(isset($_POST['message_com'])){
+            // pour que l'utilisateur de rentre pas de l'html
+            $id_post = htmlspecialchars($_POST['id_post']);
+            $id_utilisateur = htmlspecialchars($_POST['id_utilisateur']);
+            $com = htmlspecialchars($_POST['com']);
+             //partie insertion
+            //preparation de la requete
+            $requete_com = $bdd->prepare("INSERT INTO com(id_utilisateur,id_post,com) VALUES ('".$id_utilisateur."','".$post_post."','".$com."');");
+            
+            //execution de la requete
+            $requete_com->execute();
+            //si il y a pas d'information ou manque des information
+           
+                
+                
+                
+                
+        }
+            
     
     
     
@@ -81,7 +112,7 @@
                 </div>
                 <div class="affichage des postes">
                 <?php 
-                    $select_postes_user = $bdd->prepare('SELECT * FROM post' );
+                    $select_postes_user = $bdd->prepare('SELECT * FROM post INNER JOIN utilisateur ON post.id_utilisateur = utilisateur.id_utilisateur');
                     $select_postes_user->execute();
                     $donnees_select_postes_user = $select_postes_user->fetchAll(PDO::FETCH_ASSOC); 
                 
@@ -90,9 +121,18 @@
       
                 ?>
                 <p><?= $donnee_select_poste_user["id_utilisateur"]?></p>
-        
+                        
                 <div><?= $donnee_select_poste_user["text"]?></div>
-      
+                <?php 
+                    if($_SESSION['id_utilisateur'] == $donnee_select_poste_user["id_utilisateur"]){
+                ?>
+                <form action="blog.php" method="POST">
+                    <input type="hidden" name="id_post" value="<?= $donnee_select_poste_user["id_post"]?>">
+                    <input type="submit" id="name" name="sup" value="sup">
+                </form>
+               
+                <?php }?>
+                
                 <?php 
      
                     endforeach; 
@@ -102,31 +142,31 @@
         </div>
     </div>
     <script>
-// Get the modal
-var modal = document.getElementById("myModal");
+        // Get the modal
+        var modal = document.getElementById("myModal");
 
-// Get the button that opens the modal
-var btn = document.getElementById("myBtn");
+        // Get the button that opens the modal
+        var btn = document.getElementById("myBtn");
 
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
 
-// When the user clicks the button, open the modal 
-btn.onclick = function() {
-  modal.style.display = "block";
-}
+        // When the user clicks the button, open the modal 
+        btn.onclick = function() {
+          modal.style.display = "block";
+        }
 
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-  modal.style.display = "none";
-}
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+          modal.style.display = "none";
+        }
 
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-}
-</script>
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+          if (event.target == modal) {
+            modal.style.display = "none";
+          }
+        }
+    </script>
 </body>
 </html>
