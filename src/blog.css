@@ -39,7 +39,6 @@
 .header {
   width: 100%;
   height: 50px;
-  border: solid black;
   display: flex;
   align-items: center;
   justify-content: space-between; }
@@ -61,7 +60,12 @@
   justify-content: center; }
   .container_blog .all_post {
     width: 50%;
-    height: 100%; }
+    height: 100%;
+    border: solid black; }
+    .container_blog .all_post .post {
+      width: 100%;
+      display: flex;
+      justify-content: center; }
 
 /* Modal Content */
 .modal-content {

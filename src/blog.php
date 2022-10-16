@@ -11,18 +11,15 @@
              //partie insertion
             //preparation de la requete
             $requete_blog = $bdd->prepare("INSERT INTO post(id_utilisateur,text) VALUES ('".$id_utilisateur."','".$post_blog."');");
+
             //execution de la requete
             $requete_blog->execute();
             //si il y a pas d'information ou manque des information
             header('Location: blog.php');
             
             
-            // verifie si le mail est deja dans la base de donnée
             
             
-            
-                
-    
             }
         }
     
@@ -79,7 +76,28 @@
         
         <div class="container_blog">
             <div class="all_post">
-
+                <div class="post">
+                    Tous les postes
+                </div>
+                <div class="affichage des postes">
+                <?php 
+                    $select_postes_user = $bdd->prepare('SELECT * FROM post' );
+                    $select_postes_user->execute();
+                    $donnees_select_postes_user = $select_postes_user->fetchAll(PDO::FETCH_ASSOC); 
+                
+                    // afficher tous les utilisateurs du site, et on peut filtrer avec la barre de recherche
+                    foreach($donnees_select_postes_user as $donnee_select_poste_user): 
+      
+                ?>
+                <p><?= $donnee_select_poste_user["id_utilisateur"]?></p>
+        
+                <div><?= $donnee_select_poste_user["text"]?></div>
+      
+                <?php 
+     
+                    endforeach; 
+                ?>
+                </div>
             </div>
         </div>
     </div>
