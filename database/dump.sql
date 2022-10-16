@@ -13,11 +13,11 @@ create table `post` (
 ); 
 create table `com` (     
     id_com int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,    
-    id_utilisateur INT REFERENCES utilisateur (id_utilisateur),
+    -- id_utilisateur INT REFERENCES utilisateur (id_utilisateur),
     id_post INT REFERENCES post ( id_post),
     com text ,   
         
-    FOREIGN KEY (id_utilisateur) REFERENCES utilisateur (id_utilisateur),
+    -- FOREIGN KEY (id_utilisateur) REFERENCES utilisateur (id_utilisateur),
     FOREIGN KEY (id_post) REFERENCES post (id_post)
 
 ); 

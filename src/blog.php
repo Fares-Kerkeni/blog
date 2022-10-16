@@ -38,11 +38,11 @@
         if(isset($_POST['message_com'])){
             // pour que l'utilisateur de rentre pas de l'html
             $id_post = htmlspecialchars($_POST['id_post']);
-            $id_utilisateur = htmlspecialchars($_POST['id_utilisateur']);
+          
             $com = htmlspecialchars($_POST['com']);
              //partie insertion
             //preparation de la requete
-            $requete_com = $bdd->prepare("INSERT INTO com(id_utilisateur,id_post,com) VALUES ('".$id_utilisateur."','".$post_post."','".$com."');");
+            $requete_com = $bdd->prepare("INSERT INTO com(id_post,com) VALUES ('".$id_post."','".$com."');");
             
             //execution de la requete
             $requete_com->execute();
@@ -115,16 +115,25 @@
                     $select_postes_user = $bdd->prepare('SELECT * FROM post INNER JOIN utilisateur ON post.id_utilisateur = utilisateur.id_utilisateur');
                     $select_postes_user->execute();
                     $donnees_select_postes_user = $select_postes_user->fetchAll(PDO::FETCH_ASSOC); 
-                
+
+                    $select_commentaires_user = $bdd->prepare('SELECT * FROM com ');
+                    $select_commentaires_user->execute();
+                    $donnees_select_commentaires_user = $select_commentaires_user->fetchAll(PDO::FETCH_ASSOC); 
+                    // afficher tous les utilisateurs du site, et on peut filtrer avec la barre de recherche
+                    // foreach($donnees_select_commentaires_user as $donnee_select_commentaire_user): 
+                    
                     // afficher tous les utilisateurs du site, et on peut filtrer avec la barre de recherche
                     foreach($donnees_select_postes_user as $donnee_select_poste_user): 
+                       
       
                 ?>
+              
                 <p><?= $donnee_select_poste_user["id_utilisateur"]?></p>
                         
                 <div><?= $donnee_select_poste_user["text"]?></div>
                 <?php 
                     if($_SESSION['id_utilisateur'] == $donnee_select_poste_user["id_utilisateur"]){
+
                 ?>
                 <form action="blog.php" method="POST">
                     <input type="hidden" name="id_post" value="<?= $donnee_select_poste_user["id_post"]?>">
@@ -132,11 +141,17 @@
                 </form>
                
                 <?php }?>
-                
+                <form action="blog.php" method="POST">
+                    <input type="hidden" name="id_post" value="<?= $donnee_select_poste_user["id_post"]?>">
+                    
+                    <input type="text"  name="com" placeholder="com">
+                    <input type="submit"  name="message_com" value="message_com">
+                </form>
                 <?php 
      
                     endforeach; 
                 ?>
+               
                 </div>
             </div>
         </div>
